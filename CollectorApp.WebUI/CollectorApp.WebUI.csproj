@@ -96,6 +96,12 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Abstractions, Version=3.3.1.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Abstractions.3.3.1\lib\net46\Unity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Container, Version=5.8.7.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Container.5.8.7\lib\net46\Unity.Container.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Mvc, Version=5.0.14.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
       <HintPath>..\packages\Unity.Mvc.5.0.14\lib\net46\Unity.Mvc.dll</HintPath>
     </Reference>
@@ -283,6 +289,19 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CollectorApp.Core\CollectorApp.Core.csproj">
+      <Project>{8455D9F8-8539-41F2-A4E3-312EE708C030}</Project>
+      <Name>CollectorApp.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CollectorApp.DataAccess.InMemory\CollectorApp.DataAccess.InMemory.csproj">
+      <Project>{D00B9B4F-57B3-4DB7-B2FC-589A65E49D6B}</Project>
+      <Name>CollectorApp.DataAccess.InMemory</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
