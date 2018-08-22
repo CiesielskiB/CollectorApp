@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CollectorApp.DataAccess.InMemory
+namespace CollectorApp.Core.Models
 {
-    public class Class1
-    {
-    }
+	public class Genre : BaseEntity
+	{
+		public string GenreName { get; set; }
+	}
 }

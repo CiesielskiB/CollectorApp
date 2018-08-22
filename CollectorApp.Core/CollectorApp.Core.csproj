@@ -43,6 +43,7 @@
     <Compile Include="Models\BaseEntity.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\Game.cs" />
+    <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\Subject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
