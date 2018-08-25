@@ -9,6 +9,6 @@ namespace CollectorApp.Core.Models
 	public class Game : Subject
 	{
 		public string Developer { get; set; }
-		public Decimal Discs { get; set; }
+		public int Discs { get; set; }
 	}
 }

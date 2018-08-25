@@ -203,6 +203,8 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BookManagerController.cs" />
+    <Compile Include="Controllers\GameManagerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -273,6 +275,16 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\BookManager\Index.cshtml" />
+    <Content Include="Views\BookManager\Create.cshtml" />
+    <Content Include="Views\BookManager\Delete.cshtml" />
+    <Content Include="Views\BookManager\Edit.cshtml" />
+    <Content Include="Views\BookManager\Details.cshtml" />
+    <Content Include="Views\GameManager\Index.cshtml" />
+    <Content Include="Views\GameManager\Create.cshtml" />
+    <Content Include="Views\GameManager\Delete.cshtml" />
+    <Content Include="Views\GameManager\Edit.cshtml" />
+    <Content Include="Views\GameManager\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

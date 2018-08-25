@@ -47,7 +47,6 @@ namespace CollectorApp.WebUI
 			// container.RegisterType<IProductRepository, ProductRepository>();
 			container.RegisterType<IRepository<Book>, InMemoryRepository<Book>>();
 			container.RegisterType<IRepository<Game>, InMemoryRepository<Game>>();
-			container.RegisterType<IRepository<Genre>, InMemoryRepository<Genre>>();
 		}
     }
 }
