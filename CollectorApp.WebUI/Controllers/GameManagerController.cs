@@ -2,6 +2,7 @@
 using CollectorApp.Core.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -29,7 +30,7 @@ namespace CollectorApp.WebUI.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult Create(Game game)
+		public ActionResult Create(Game game, HttpPostedFileBase image)
 		{
 			if (!ModelState.IsValid)
 			{
@@ -37,6 +38,11 @@ namespace CollectorApp.WebUI.Controllers
 			}
 			else
 			{
+				if (image != null)
+				{
+					game.Image = game.Id + Path.GetExtension(image.FileName);
+					image.SaveAs(Server.MapPath("//Content//GameImages//") + game.Image);
+				}
 				context.Insert(game);
 				context.Commit();
 				return RedirectToAction("Index");
@@ -62,6 +68,11 @@ namespace CollectorApp.WebUI.Controllers
 			Game gameToDelete = context.Find(Id);
 			if (gameToDelete != null)
 			{
+				var imageToDelete = Server.MapPath("//Content//GameImages//") + gameToDelete.Image;
+				if (System.IO.File.Exists(imageToDelete))
+				{
+					System.IO.File.Delete(imageToDelete);
+				}
 				context.Delete(Id);
 				context.Commit();
 				return RedirectToAction("Index");
@@ -85,11 +96,22 @@ namespace CollectorApp.WebUI.Controllers
 			}
 		}
 		[HttpPost]
-		public ActionResult Edit(string Id, Game newGame)
+		public ActionResult Edit(string Id, Game newGame, HttpPostedFileBase image)
 		{
 			Game gameToEdit = context.Find(Id);
 			if (gameToEdit != null)
 			{
+				if (image != null)
+				{
+					var imageToDelete = Server.MapPath("//Content//GameImages//") + gameToEdit.Image;
+					if (System.IO.File.Exists(imageToDelete))
+					{
+						System.IO.File.Delete(imageToDelete);
+					}
+					gameToEdit.Image = newGame.Id + Path.GetExtension(image.FileName);
+					image.SaveAs(Server.MapPath("//Content//GameImages//") + gameToEdit.Image);
+				}
+
 				gameToEdit.Title = newGame.Title;
 				gameToEdit.Description = newGame.Description;
 				gameToEdit.Genre = newGame.Genre;

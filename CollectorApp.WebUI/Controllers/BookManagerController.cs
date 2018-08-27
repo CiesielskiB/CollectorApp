@@ -2,6 +2,7 @@
 using CollectorApp.Core.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -30,7 +31,7 @@ namespace CollectorApp.WebUI.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult Create(Book book)
+		public ActionResult Create(Book book, HttpPostedFileBase image)
 		{
 			if (!ModelState.IsValid)
 			{
@@ -38,6 +39,11 @@ namespace CollectorApp.WebUI.Controllers
 			}
 			else
 			{
+				if(image != null)
+				{
+					book.Image = book.Id + Path.GetExtension(image.FileName);
+					image.SaveAs(Server.MapPath("//Content//BookImages//") + book.Image);
+				}
 				context.Insert(book);
 				context.Commit();
 				return RedirectToAction("Index");
@@ -63,6 +69,11 @@ namespace CollectorApp.WebUI.Controllers
 			Book bookToDelete = context.Find(Id);
 			if (bookToDelete != null)
 			{
+				var imageToDelete = Server.MapPath("//Content//BookImages//") + bookToDelete.Image;
+				if (System.IO.File.Exists(imageToDelete))
+				{
+					System.IO.File.Delete(imageToDelete);
+				}
 				context.Delete(Id);
 				context.Commit();
 				return RedirectToAction("Index");
@@ -86,11 +97,23 @@ namespace CollectorApp.WebUI.Controllers
 			}
 		}
 		[HttpPost]
-		public ActionResult Edit(string Id, Book newBook)
+		public ActionResult Edit(string Id, Book newBook, HttpPostedFileBase image)
 		{
 			Book bookToEdit = context.Find(Id);
 			if (bookToEdit != null)
 			{
+				if (!ModelState.IsValid) return View(newBook);
+				if(image != null)
+				{
+					var imageToDelete = Server.MapPath("//Content//BookImages//") + bookToEdit.Image;
+					if (System.IO.File.Exists(imageToDelete))
+					{
+						System.IO.File.Delete(imageToDelete);
+					}
+					bookToEdit.Image = newBook.Id + Path.GetExtension(image.FileName);
+					image.SaveAs(Server.MapPath("//Content//BookImages//") + bookToEdit.Image);
+				}
+
 				bookToEdit.Title = newBook.Title;
 				bookToEdit.Description = newBook.Description;
 				bookToEdit.Genre = newBook.Genre;
