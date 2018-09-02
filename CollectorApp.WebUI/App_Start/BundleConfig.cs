@@ -23,7 +23,7 @@ namespace CollectorApp.WebUI
 					  "~/Scripts/bootstrap.js"));
 
 			bundles.Add(new StyleBundle("~/Content/css").Include(
-					  "~/Content/bootstrap.css",
+					  "~/Content/bootstrap-Cosmo.css",
 					  "~/Content/site.css"));
 		}
 	}
