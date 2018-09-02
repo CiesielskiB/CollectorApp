@@ -45,7 +45,8 @@ namespace CollectorApp.WebUI
 
 			// TODO: Register your type's mappings here.
 			// container.RegisterType<IProductRepository, ProductRepository>();
-			container.RegisterType<IRepository<Book>, InMemoryRepository<Book>>();
+			container.RegisterType<IRepository<Subject>, InMemoryRepository<Subject>>();
+			container.RegisterType<IRepository<Category>, InMemoryRepository<Category>>();
 			container.RegisterType<IRepository<Game>, InMemoryRepository<Game>>();
 		}
     }
