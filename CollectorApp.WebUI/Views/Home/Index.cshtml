@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Home Page";
 }
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 
 <div class="col-md-2">
@@ -15,27 +15,53 @@
         }
     </div>
 </div>
-    <div class="col-md-10">
-        @foreach (var item in Model.Subjects)
-        {
+<div class="col-md-10">
+    @foreach (var item in Model.Subjects)
+    {
 
-            <div class="col-md-4 text-center" style="height:375px;padding:15px;margin:10px;border:solid thin whitesmoke">
-                <div class="col-md-12">
-                    <img class="img img-responsive" style="height:250px; margin: 0 auto;" src="~/Content/SubjectImages/@item.Image" />
-                </div>
-                <div class="col-md-12 text-center text-uppercase ">
-                    <strong>@Html.ActionLink(item.Title, "Details", new { id = item.Id })</strong>
-                </div>
-                <div class="col-md-12 text-center">
-                    <p><b>Category:</b> @item.Category</p>
-                </div>
-                <div class="col-md-12 text-center">
-                    <p><b>Publisher: </b>@item.Publisher</p>
-                </div>
-                <div class="col-md-12 text-center">
-                    <p><b>Genre:</b> @item.Genre</p>
-                </div>
-            </div>
-        }
+    <div class="col-md-4 text-center" style="height:375px;padding:15px;margin:10px;border:solid thin whitesmoke">
+        <div class="col-md-12">
+            <img class="img img-responsive" style="height:250px; margin: 0 auto;" src="~/Content/SubjectImages/@item.Image" />
+        </div>
+        <div class="col-md-12 text-center text-uppercase ">
+            <strong>@Html.ActionLink(item.Title, "Details", new { id = item.Id })</strong>
+        </div>
+        <div class="col-md-12 text-center">
+            <p><b>Category:</b> @item.Category</p>
+        </div>
+        <div class="col-md-12 text-center">
+            <p><b>Publisher: </b>@item.Publisher</p>
+        </div>
+        <div class="col-md-12 text-center">
+            <p><b>Genre:</b> @item.Genre</p>
+        </div>
+        <div class="col-md-12 text-center">
+            <button type="button" class="btn btn-default BorrowModal" data-url="@Url.Action("Borrowing", "Borrowing", new { subjectId = item.Id })">Borrow</button>
+
+            <div class="modal fade" id="myModal" role="dialog" ></div>
+        </div>
     </div>
+    }
+</div>
+
     <div class="col-md-12 clearfix"></div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            
+            $('.BorrowModal').click(function () {
+
+                var url = $(this).data('url');
+                
+                $.get(url, function (data) {
+                    console.debug(url)
+                    $("#myModal").html(data);
+                    $("#myModal").modal('show');
+
+                });
+
+            });
+
+        });
+        
+        
+    </script>

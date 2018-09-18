@@ -203,6 +203,7 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BorrowingController.cs" />
     <Compile Include="Controllers\SubjectManagerController.cs" />
     <Compile Include="Controllers\CategoryManagerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -284,6 +285,8 @@
     <Content Include="Views\CategoryManager\Delete.cshtml" />
     <Content Include="Views\CategoryManager\Edit.cshtml" />
     <Content Include="Views\Home\Details.cshtml" />
+    <Content Include="Views\Borrowing\Index.cshtml" />
+    <Content Include="Views\Borrowing\Borrowing.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -310,6 +313,10 @@
     <ProjectReference Include="..\CollectorApp.DataAccess.InMemory\CollectorApp.DataAccess.InMemory.csproj">
       <Project>{D00B9B4F-57B3-4DB7-B2FC-589A65E49D6B}</Project>
       <Name>CollectorApp.DataAccess.InMemory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CollectorApp.Services\CollectorApp.Services.csproj">
+      <Project>{E73BA790-E166-4676-9F96-974AAB1F1152}</Project>
+      <Name>CollectorApp.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

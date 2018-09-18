@@ -1,0 +1,64 @@
+﻿@model CollectorApp.Core.Models.Subject
+<div class="container">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="text-capitalize text-center">Borrowing @Model.Title</h2>
+                </div>
+                <div class="modal-body col-md-12">
+
+                    <div class="img-responsive">
+                        <img class="img img-responsive" style="height:250px; margin: 0 auto;" src="~/Content/SubjectImages/@Model.Image" />
+                    </div>
+                    <form id="borrowFrom">
+                        <div class="form-horizontal">
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            @Html.HiddenFor(model => Model.Id, new { id = "subjectId", name = "subjectId" })
+                            <div class="form-group">
+                                <div class="col-md-2 text-capitalize">Borrowing person</div>
+                                <div class="col-md-10">
+                                    <input type="text" name="name" id="name" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-2 text-capitalize">Return date</div>
+                                <div class="col-md-10">
+                                    <input type="date" name="returnDate" id="returnDate" />
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="col-md-offset-2 col-md-10">
+                                    <a href="#" id="submitbtn" class="btn btn-default">borrow</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+</div>
+<script type="text/javascript">
+   $(document).ready(function () {
+        $("#submitbtn").click(function () {
+            var Actionurl = $(this).data('url');
+            var myFormData = $("#borrowFrom").serialize();
+            $.ajax({
+                type: "POST",
+                url: "borrowing/borrowing",
+                data: myFormData,
+                success: function () {
+                    $("#myModal").modal("hide");
+                }
+            });
+        });
+    });
+</script>

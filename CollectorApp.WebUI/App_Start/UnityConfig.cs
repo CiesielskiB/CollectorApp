@@ -1,6 +1,7 @@
 using CollectorApp.Core.Contracts;
 using CollectorApp.Core.Models;
 using CollectorApp.DataAccess.InMemory;
+using CollectorApp.Services;
 using System;
 
 using Unity;
@@ -47,7 +48,8 @@ namespace CollectorApp.WebUI
 			// container.RegisterType<IProductRepository, ProductRepository>();
 			container.RegisterType<IRepository<Subject>, InMemoryRepository<Subject>>();
 			container.RegisterType<IRepository<Category>, InMemoryRepository<Category>>();
-			container.RegisterType<IRepository<Game>, InMemoryRepository<Game>>();
+			container.RegisterType<IRepository<BorrowedSubject>, InMemoryRepository<BorrowedSubject>>();
+			container.RegisterType<IBorrowingService, BorrowingService>();
 		}
     }
 }
