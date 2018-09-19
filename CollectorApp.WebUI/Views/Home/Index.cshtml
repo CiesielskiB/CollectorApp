@@ -37,8 +37,9 @@
         </div>
         <div class="col-md-12 text-center">
             <button type="button" class="btn btn-default BorrowModal" data-url="@Url.Action("Borrowing", "Borrowing", new { subjectId = item.Id })">Borrow</button>
+            <button type="button" class="btn btn-default ReturnModal" data-url="@Url.Action("Returning", "Borrowing", new { subjectId = item.Id })">Return</button>
 
-            <div class="modal fade" id="myModal" role="dialog" ></div>
+            <div class="modal fade" id="myModal" role="dialog"></div>
         </div>
     </div>
     }
@@ -52,6 +53,18 @@
 
                 var url = $(this).data('url');
                 
+                $.get(url, function (data) {
+                    console.debug(url)
+                    $("#myModal").html(data);
+                    $("#myModal").modal('show');
+
+                });
+
+            });
+            $('.ReturnModal').click(function () {
+
+                var url = $(this).data('url');
+
                 $.get(url, function (data) {
                     console.debug(url)
                     $("#myModal").html(data);

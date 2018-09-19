@@ -1,14 +1,13 @@
 ﻿using CollectorApp.Core.Contracts;
 using CollectorApp.Core.Models;
+using CollectorApp.Core.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace CollectorApp.WebUI.Controllers
 {
-    public class BorrowingController : Controller
+	public class BorrowingController : Controller
     {
 		IRepository<BorrowedSubject> borrowedSubjectsContext;
 		IRepository<Subject> SubjectContext;
@@ -49,5 +48,37 @@ namespace CollectorApp.WebUI.Controllers
 			}
 
 		}
-    }
+
+		public ActionResult Returning(string subjectId)
+		{
+			Subject subjectToReturn = SubjectContext.Find(subjectId);
+			BorrowedSubject borrowed = borrowedSubjectsContext.Collection().FirstOrDefault(i => i.SubjectId == subjectId);
+			ReturningViewModel viewModel = new ReturningViewModel
+			{
+				Subject = subjectToReturn,
+				BorrowedSubject = borrowed
+			};
+			if (subjectToReturn == null) return HttpNotFound();
+			else
+			{
+				return PartialView(viewModel);
+			}
+		}
+
+		[HttpPost]
+		[ActionName("Returning")]
+		public ActionResult ConfirmReturn(string Id)
+		{
+			try
+			{
+				BorrowingService.ReturnSubject(Id);
+				return RedirectToAction("index", "Home", new { area = "" });
+			}
+			catch (Exception ex)
+			{
+				return View("Error", new HandleErrorInfo(ex, "Borrowing", "Returning"));
+			}
+
+		}
+	}
 }

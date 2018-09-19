@@ -44,10 +44,10 @@ namespace CollectorApp.Services
 		public void ReturnSubject(string borrowedSubjectId)
 		{
 			BorrowedSubject subjectToReturn = borrowedContext.Find(borrowedSubjectId);
-			if(subjectToReturn == null) throw new Exception("Item not borrowed");
+			if (subjectToReturn == null) throw new Exception("Item not borrowed");
 			else
 			{
-				borrowedContext.Delete(borrowedSubjectId);
+				borrowedContext.Delete(subjectToReturn.Id);
 				borrowedContext.Commit();
 			}
 		}
