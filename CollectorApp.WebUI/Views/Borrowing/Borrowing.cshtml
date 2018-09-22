@@ -56,7 +56,12 @@
                 url: "borrowing/borrowing",
                 data: myFormData,
                 success: function () {
+                    $("#button-@Model.Id").text("Return");
+                    $("#button-@Model.Id").data('url', '@Url.Action("Returning", "Borrowing", new { subjectId = Model.Id })');
                     $("#myModal").modal("hide");
+                   
+                    
+                    
                 }
             });
         });

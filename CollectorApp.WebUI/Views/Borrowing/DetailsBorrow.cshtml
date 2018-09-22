@@ -1,0 +1,28 @@
+﻿@model CollectorApp.Core.Models.Subject
+@using (Html.BeginForm("Borrowing", "Borrowing", FormMethod.Post))
+{
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => Model.Id, new { id = "Id", name = "Id" })
+        <div class="form-group">
+            <div class="col-md-2 text-capitalize">Borrowing person</div>
+            <div class="col-md-4">
+                <input type="text" name="name" id="name" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2 text-capitalize">Return date</div>
+            <div class="col-md-4">
+                <input type="date" name="returnDate" id="returnDate" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-4">
+                <input type="submit" value="Borrow" class="btn btn-default " />
+            </div>
+        </div>
+    </div>
+}

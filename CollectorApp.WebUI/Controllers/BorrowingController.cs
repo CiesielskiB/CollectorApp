@@ -80,5 +80,21 @@ namespace CollectorApp.WebUI.Controllers
 			}
 
 		}
+
+		public PartialViewResult DetailsBorrow()
+		{
+			return PartialView();
+		}
+		public PartialViewResult DetailsReturn(string subjectId)
+		{
+			Subject subjectToReturn = SubjectContext.Find(subjectId);
+			BorrowedSubject borrowed = borrowedSubjectsContext.Collection().FirstOrDefault(i => i.SubjectId == subjectId);
+			ReturningViewModel viewModel = new ReturningViewModel
+			{
+				Subject = subjectToReturn,
+				BorrowedSubject = borrowed
+			};
+				return PartialView(viewModel);
+		}
 	}
 }

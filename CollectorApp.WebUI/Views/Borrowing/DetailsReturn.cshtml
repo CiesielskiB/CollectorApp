@@ -1,0 +1,29 @@
+﻿@model CollectorApp.Core.ViewModels.ReturningViewModel
+    
+@using (Html.BeginForm("Returning", "Borrowing", FormMethod.Post))
+    {
+            <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <input id="Id" name="Id" value="@Model.BorrowedSubject.Id" type="hidden">
+        <div class="form-group">
+            <div class="col-md-2 text-capitalize">Persons name: </div>
+            <div class="col-md-4">
+                @Model.BorrowedSubject.Name
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2 text-capitalize">Return date: </div>
+            <div class="col-md-4">
+                @Model.BorrowedSubject.ReturnDate.Date.ToShortDateString()
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-4">
+                <input type="submit" value="Return" class="btn btn-default " />
+            </div>
+        </div>
+                </div>
+        
+    }

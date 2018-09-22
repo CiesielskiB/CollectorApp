@@ -1,6 +1,7 @@
 using CollectorApp.Core.Contracts;
 using CollectorApp.Core.Models;
 using CollectorApp.DataAccess.InMemory;
+using CollectorApp.DataAccess.SQL;
 using CollectorApp.Services;
 using System;
 
@@ -46,9 +47,9 @@ namespace CollectorApp.WebUI
 
 			// TODO: Register your type's mappings here.
 			// container.RegisterType<IProductRepository, ProductRepository>();
-			container.RegisterType<IRepository<Subject>, InMemoryRepository<Subject>>();
-			container.RegisterType<IRepository<Category>, InMemoryRepository<Category>>();
-			container.RegisterType<IRepository<BorrowedSubject>, InMemoryRepository<BorrowedSubject>>();
+			container.RegisterType<IRepository<Subject>, SQLRepository<Subject>>();
+			container.RegisterType<IRepository<Category>, SQLRepository<Category>>();
+			container.RegisterType<IRepository<BorrowedSubject>, SQLRepository<BorrowedSubject>>();
 			container.RegisterType<IBorrowingService, BorrowingService>();
 		}
     }

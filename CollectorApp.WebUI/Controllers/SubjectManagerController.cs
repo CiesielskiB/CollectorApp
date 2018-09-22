@@ -51,7 +51,7 @@ namespace CollectorApp.WebUI.Controllers
 				}
 				subjectContext.Insert(subject);
 				subjectContext.Commit();
-				return RedirectToAction("index");
+				return RedirectToAction("index","Home",new { area = "" });
 			}
 		}
 
@@ -81,7 +81,7 @@ namespace CollectorApp.WebUI.Controllers
 				}
 				subjectContext.Delete(Id);
 				subjectContext.Commit();
-				return RedirectToAction("Index");
+				return RedirectToAction("index", "Home", new { area = "" });
 			}
 			else
 			{
@@ -128,7 +128,7 @@ namespace CollectorApp.WebUI.Controllers
 				subjectToEdit.Genre = subject.Genre;
 				subjectToEdit.Publisher = subject.Publisher;
 				subjectContext.Commit();
-				return RedirectToAction("Index");
+				return RedirectToAction("index", "Home", new { area = "" });
 			}
 			else
 			{

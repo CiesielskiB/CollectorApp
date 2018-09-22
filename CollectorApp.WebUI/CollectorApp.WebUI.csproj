@@ -288,6 +288,8 @@
     <Content Include="Views\Borrowing\Index.cshtml" />
     <Content Include="Views\Borrowing\Borrowing.cshtml" />
     <Content Include="Views\Borrowing\Returning.cshtml" />
+    <Content Include="Views\Borrowing\DetailsBorrow.cshtml" />
+    <Content Include="Views\Borrowing\DetailsReturn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -314,6 +316,10 @@
     <ProjectReference Include="..\CollectorApp.DataAccess.InMemory\CollectorApp.DataAccess.InMemory.csproj">
       <Project>{D00B9B4F-57B3-4DB7-B2FC-589A65E49D6B}</Project>
       <Name>CollectorApp.DataAccess.InMemory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CollectorApp.DataAccess.SQL\CollectorApp.DataAccess.SQL.csproj">
+      <Project>{CED07F54-F3CA-4E7B-864A-8F2184BBBA66}</Project>
+      <Name>CollectorApp.DataAccess.SQL</Name>
     </ProjectReference>
     <ProjectReference Include="..\CollectorApp.Services\CollectorApp.Services.csproj">
       <Project>{E73BA790-E166-4676-9F96-974AAB1F1152}</Project>

@@ -5,6 +5,17 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 
+
+<div class="col-md-12" style="margin:10px;">
+    <div class="list-group">
+        @Html.ActionLink("All", "Index", null, new { @class = Request["Listing"] == null ? "list-group-item text-center active" : "list-group-item text-center", style = "float:left" })
+        @Html.ActionLink("Borrowed", "Index", new { Listing = "borrowed" }, new { @class = Request["Listing"] == "borrowed" ? "list-group-item text-center active" : "list-group-item text-center", style = "float:left" })
+        @Html.ActionLink("Owned", "Index", new { Listing = "owned" }, new { @class = Request["Listing"] == "owned" ? "list-group-item text-center active" : "list-group-item text-center", style = "float:left" })
+    </div>
+ 
+</div>
+
+
 <div class="col-md-2">
     <h4>filter by Category</h4>
     <div class="list-group">
@@ -19,62 +30,49 @@
     @foreach (var item in Model.Subjects)
     {
 
-    <div class="col-md-4 text-center" style="height:375px;padding:15px;margin:10px;border:solid thin whitesmoke">
-        <div class="col-md-12">
-            <img class="img img-responsive" style="height:250px; margin: 0 auto;" src="~/Content/SubjectImages/@item.Image" />
-        </div>
-        <div class="col-md-12 text-center text-uppercase ">
-            <strong>@Html.ActionLink(item.Title, "Details", new { id = item.Id })</strong>
-        </div>
-        <div class="col-md-12 text-center">
-            <p><b>Category:</b> @item.Category</p>
-        </div>
-        <div class="col-md-12 text-center">
-            <p><b>Publisher: </b>@item.Publisher</p>
-        </div>
-        <div class="col-md-12 text-center">
-            <p><b>Genre:</b> @item.Genre</p>
-        </div>
-        <div class="col-md-12 text-center">
-            <button type="button" class="btn btn-default BorrowModal" data-url="@Url.Action("Borrowing", "Borrowing", new { subjectId = item.Id })">Borrow</button>
-            <button type="button" class="btn btn-default ReturnModal" data-url="@Url.Action("Returning", "Borrowing", new { subjectId = item.Id })">Return</button>
+        <div class="col-md-4 text-center" style="height:375px;padding:15px;margin:10px;border:solid thin whitesmoke">
+            <div class="col-md-12">
+                <img class="img img-responsive" style="height:250px; margin: 0 auto;" src="~/Content/SubjectImages/@item.Image" />
+            </div>
+            <div class="col-md-12 text-center text-uppercase ">
+                <strong>@Html.ActionLink(item.Title, "Details", new { id = item.Id })</strong>
+            </div>
+            <div class="col-md-12 text-center">
+                <p><b>Category:</b> @item.Category</p>
+            </div>
+            <div class="col-md-12 text-center">
+                <p><b>Publisher: </b>@item.Publisher</p>
+            </div>
+            <div class="col-md-12 text-center">
+                <p><b>Genre:</b> @item.Genre</p>
+            </div>
+            <div class="col-md-12 text-center">
+                <button type="button" class="btn btn-default PartialModal" id="button-@item.Id" data-url="@Url.Action(item.IsBorrowed == false ? "Borrowing" : "Returning", "Borrowing", new { subjectId = item.Id })">@(item.IsBorrowed == false ? "Borrow" : "Return")</button>
 
-            <div class="modal fade" id="myModal" role="dialog"></div>
+                <div class="modal fade" id="myModal" role="dialog"></div>
+            </div>
         </div>
-    </div>
     }
 </div>
 
-    <div class="col-md-12 clearfix"></div>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            
-            $('.BorrowModal').click(function () {
+<div class="col-md-12 clearfix"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
 
-                var url = $(this).data('url');
-                
-                $.get(url, function (data) {
-                    console.debug(url)
-                    $("#myModal").html(data);
-                    $("#myModal").modal('show');
+        $('.PartialModal').click(function () {
 
-                });
+            var url = $(this).data('url');
 
-            });
-            $('.ReturnModal').click(function () {
-
-                var url = $(this).data('url');
-
-                $.get(url, function (data) {
-                    console.debug(url)
-                    $("#myModal").html(data);
-                    $("#myModal").modal('show');
-
-                });
+            $.get(url, function (data) {
+                console.debug(url)
+                $("#myModal").html(data);
+                $("#myModal").modal('show');
 
             });
 
         });
-        
-        
-    </script>
+
+    });
+
+
+</script>

@@ -25,6 +25,9 @@ namespace CollectorApp.Services
 			if (borrow != null) throw new Exception("Item already borrowed");
 			else
 			{
+				Subject subjectToBorrow = subjectContext.Find(subjectId);
+				subjectToBorrow.IsBorrowed = true;
+				subjectContext.Commit();
 				borrow = new BorrowedSubject()
 				{
 					SubjectId = subjectId,
@@ -43,11 +46,14 @@ namespace CollectorApp.Services
 
 		public void ReturnSubject(string borrowedSubjectId)
 		{
-			BorrowedSubject subjectToReturn = borrowedContext.Find(borrowedSubjectId);
-			if (subjectToReturn == null) throw new Exception("Item not borrowed");
+			BorrowedSubject borrowedSubjectToReturn = borrowedContext.Find(borrowedSubjectId);
+			if (borrowedSubjectToReturn == null) throw new Exception("Item not borrowed");
 			else
 			{
-				borrowedContext.Delete(subjectToReturn.Id);
+				Subject subjectToBorrow = subjectContext.Find(borrowedSubjectToReturn.SubjectId);
+				subjectToBorrow.IsBorrowed = false;
+				subjectContext.Commit();
+				borrowedContext.Delete(borrowedSubjectToReturn.Id);
 				borrowedContext.Commit();
 			}
 		}
