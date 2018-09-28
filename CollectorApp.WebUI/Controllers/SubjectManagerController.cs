@@ -12,6 +12,7 @@ namespace CollectorApp.WebUI.Controllers
 {
 	public class SubjectManagerController : Controller
 	{
+		const string PLACEHOLDERIMAGE = "Placeholder.jpg";
 		IRepository<Subject> subjectContext;
 		IRepository<Category> categoryContext;
 		// GET: BookManager
@@ -49,6 +50,10 @@ namespace CollectorApp.WebUI.Controllers
 					subject.Image = subject.Id + Path.GetExtension(image.FileName);
 					image.SaveAs(Server.MapPath("//Content//SubjectImages//") + subject.Image);
 				}
+				else
+				{
+					subject.Image = PLACEHOLDERIMAGE;
+				}
 				subjectContext.Insert(subject);
 				subjectContext.Commit();
 				return RedirectToAction("index","Home",new { area = "" });
@@ -74,11 +79,15 @@ namespace CollectorApp.WebUI.Controllers
 			Subject subjectToDelete = subjectContext.Find(Id);
 			if (subjectToDelete != null)
 			{
-				var imageToDelete = Server.MapPath("//Content//SubjectImages//") + subjectToDelete.Image;
-				if (System.IO.File.Exists(imageToDelete))
+				if(subjectToDelete.Image != PLACEHOLDERIMAGE)
 				{
-					System.IO.File.Delete(imageToDelete);
+					var imageToDelete = Server.MapPath("//Content//SubjectImages//") + subjectToDelete.Image;
+					if (System.IO.File.Exists(imageToDelete))
+					{
+						System.IO.File.Delete(imageToDelete);
+					}
 				}
+				
 				subjectContext.Delete(Id);
 				subjectContext.Commit();
 				return RedirectToAction("index", "Home", new { area = "" });
@@ -113,11 +122,7 @@ namespace CollectorApp.WebUI.Controllers
 				if (!ModelState.IsValid) return View(subject);
 				if(image != null)
 				{
-					var imageToDelete = Server.MapPath("//Content//SubjectImages//") + subjectToEdit.Image;
-					if (System.IO.File.Exists(imageToDelete))
-					{
-						System.IO.File.Delete(imageToDelete);
-					}
+
 					subjectToEdit.Image = subject.Id + Path.GetExtension(image.FileName);
 					image.SaveAs(Server.MapPath("//Content//SubjectImages//") + subjectToEdit.Image);
 				}

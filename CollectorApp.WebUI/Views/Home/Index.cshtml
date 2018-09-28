@@ -5,32 +5,52 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 
-
 <div class="col-md-12" style="margin:10px;">
     <div class="list-group">
-        @Html.ActionLink("All", "Index", null, new { @class = Request["Listing"] == null ? "list-group-item text-center active" : "list-group-item text-center", style = "float:left" })
-        @Html.ActionLink("Borrowed", "Index", new { Listing = "borrowed" }, new { @class = Request["Listing"] == "borrowed" ? "list-group-item text-center active" : "list-group-item text-center", style = "float:left" })
-        @Html.ActionLink("Owned", "Index", new { Listing = "owned" }, new { @class = Request["Listing"] == "owned" ? "list-group-item text-center active" : "list-group-item text-center", style = "float:left" })
+        @Html.ActionLink("All", "Index", new { Category = Model.FilterData.Category, Title = Model.FilterData.Title, Genre = Model.FilterData.Genre, Publisher = Model.FilterData.Publisher }, new { @class = (Request["IsBorrowed"] == "" || Request["IsBorrowed"] == null) ? "list-group-item text-center active" : "list-group-item text-center", style = "float:left" })
+        @Html.ActionLink("Borrowed", "Index", new { Category = Model.FilterData.Category, IsBorrowed = true, Title = Model.FilterData.Title, Genre = Model.FilterData.Genre, Publisher = Model.FilterData.Publisher }, new { @class = Request["IsBorrowed"] == "True" ? "list-group-item text-center active" : "list-group-item text-center", style = "float:left" })
+        @Html.ActionLink("Owned", "Index", new { Category = Model.FilterData.Category, IsBorrowed = false, Title = Model.FilterData.Title, Genre = Model.FilterData.Genre, Publisher = Model.FilterData.Publisher }, new { @class = Request["IsBorrowed"] == "False" ? "list-group-item text-center active" : "list-group-item text-center", style = "float:left" })
     </div>
  
 </div>
 
 
-<div class="col-md-2">
-    <h4>filter by Category</h4>
-    <div class="list-group">
-        @Html.ActionLink("All", "Index", null, new { @class = Request["Category"] == null ? "list-group-item text-center active" : "list-group-item text-center" })
-        @foreach (var cat in Model.Categories)
+<div class="col-md-2" style ="border:solid thin whitesmoke">
+    
+    <div class=" list-group col-md-12">
+
+        @using (Html.BeginForm("Index", "Home", FormMethod.Get))
         {
-            @Html.ActionLink(cat.CategoryName, "Index", new { Category = cat.CategoryName }, new { @class = Request["Category"] == cat.CategoryName ? "list-group-item text-center active" : "list-group-item text-center" })
+            @Html.Hidden("IsBorrowed", Model.FilterData.IsBorrowed ?? null)
+        <div class="form-group">
+            <h4 class="text-center">filter by Category:</h4>
+            @Html.DropDownList("Category", new SelectList(Model.Categories, "CategoryName", "CategoryName"), "All", htmlAttributes: new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <h4 class="text-center">filter by Title:</h4>
+            <input class="form-control" id="Title" name="Title" value="@Model.FilterData.Title" />
+        </div>
+        <div class="form-group">
+            <h4 class="text-center">filter by Genre:</h4>
+            <input class="form-control" id="Genre" name="Genre" value="@Model.FilterData.Genre" />
+        </div>
+        <div class="form-group">
+            <h4 class="text-center">filter by Publisher:</h4>
+            <input class="form-control" id="Publisher" name="Publisher" value="@Model.FilterData.Publisher" />
+        </div>
+        <div class="form-group text-center">
+            <input type="submit" value="Filter" class="btn btn-default " />
+        </div>
         }
-    </div>
+
+
+        </div>
 </div>
-<div class="col-md-10">
+<div class="col-md-10" style ="border:solid thin whitesmoke">
     @foreach (var item in Model.Subjects)
     {
 
-        <div class="col-md-4 text-center" style="height:375px;padding:15px;margin:10px;border:solid thin whitesmoke">
+        <div class="col-md-3 text-center" style="height:445px;padding:15px;margin:10px;border:solid thin whitesmoke">
             <div class="col-md-12">
                 <img class="img img-responsive" style="height:250px; margin: 0 auto;" src="~/Content/SubjectImages/@item.Image" />
             </div>

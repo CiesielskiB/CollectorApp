@@ -46,6 +46,7 @@
     <Compile Include="Models\BorrowedSubject.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Subject.cs" />
+    <Compile Include="Models\SubjectSearchModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ReturningViewModel.cs" />
     <Compile Include="ViewModels\SubjectListViewModel.cs" />

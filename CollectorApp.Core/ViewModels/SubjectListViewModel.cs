@@ -11,5 +11,6 @@ namespace CollectorApp.Core.ViewModels
 	{
 		public IEnumerable<Subject> Subjects { get; set; }
 		public IEnumerable<Category> Categories { get; set; }
+		public SubjectSearchModel FilterData { get; set; }
 	}
 }

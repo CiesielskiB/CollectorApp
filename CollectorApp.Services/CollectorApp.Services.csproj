@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="BorrowingService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SubjectSearchService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CollectorApp.Core\CollectorApp.Core.csproj">

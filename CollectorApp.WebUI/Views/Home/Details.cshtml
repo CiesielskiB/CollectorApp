@@ -53,7 +53,7 @@
                 @Html.DisplayFor(model => model.Publisher)
             </dd>
             <dt></dt>
-            <dd>@Html.ActionLink("Back to List", "Index")</dd>
+            <dd>@Html.ActionLink("Back to List", "Index",(Object)TempData["FilterData"])</dd>
             <dt></dt>
             <dd>
 

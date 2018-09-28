@@ -1,11 +1,13 @@
 ﻿using CollectorApp.Core.Contracts;
 using CollectorApp.Core.Models;
 using CollectorApp.Core.ViewModels;
+using CollectorApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace CollectorApp.WebUI.Controllers
 {
@@ -19,10 +21,15 @@ namespace CollectorApp.WebUI.Controllers
 			categoryContext = categories;
 		}
 
-		public ActionResult Index()
+		public ActionResult Index(SubjectSearchModel filterData)
 		{
+			SubjectSearchService searchService = new SubjectSearchService(subjectContext);
+
+
+			TempData["FilterData"] = searchService.RouteValuesSearches(filterData);
 			SubjectListViewModel viewModel = new SubjectListViewModel();
-			viewModel.Subjects = subjectContext.Collection().ToList();
+			viewModel.FilterData = filterData;
+			viewModel.Subjects = searchService.SubjetFiltering(filterData);
 			viewModel.Categories = categoryContext.Collection().ToList();
 			return View(viewModel);
 		}

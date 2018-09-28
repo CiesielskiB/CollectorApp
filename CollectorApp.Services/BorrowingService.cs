@@ -10,8 +10,8 @@ namespace CollectorApp.Services
 {
 	public class BorrowingService : IBorrowingService
 	{
-		IRepository<Subject> subjectContext;
-		IRepository<BorrowedSubject> borrowedContext;
+		private IRepository<Subject> subjectContext;
+		private IRepository<BorrowedSubject> borrowedContext;
 
 		public BorrowingService(IRepository<Subject> subjects, IRepository<BorrowedSubject> borrowedSubjects)
 		{
