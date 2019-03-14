@@ -1,28 +1,79 @@
 ﻿@model CollectorApp.Core.Models.Subject
-@using (Html.BeginForm("Borrowing", "Borrowing", FormMethod.Post))
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+@using (Html.BeginForm("Borrowing", "Borrowing", FormMethod.Post, new { @id = "registerFormId", @class = "form-horizontal", role = "form" }))
 {
+    HtmlHelper.UnobtrusiveJavaScriptEnabled = false;
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        @Html.HiddenFor(model => Model.Id, new { id = "Id", name = "Id" })
+        <input id="subjectId" name="subjectId" value="@Model.Id" type="hidden">
         <div class="form-group">
             <div class="col-md-2 text-capitalize">Borrowing person</div>
             <div class="col-md-4">
                 <input type="text" name="name" id="name" />
+
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-2 text-capitalize">Return date</div>
             <div class="col-md-4">
                 <input type="date" name="returnDate" id="returnDate" />
+
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-4">
-                <input type="submit" value="Borrow" class="btn btn-default " />
+                <a href="#" class="btn btn-default" id="test">Submit</a>
             </div>
         </div>
     </div>
 }
+@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#registerFormId').validate({
+            errorClass: 'help-block animation-slideDown', // You can change the animation class for a different entrance animation - check animations page
+            errorElement: 'div',
+            errorPlacement: function (error, e) {
+                e.parents('.form-group > div').append(error);
+            },
+            highlight: function (e) {
+
+                $(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
+                $(e).closest('.help-block').remove();
+            },
+            success: function (e) {
+                e.closest('.form-group').removeClass('has-success has-error');
+                e.closest('.help-block').remove();
+            },
+            rules: {
+                'Name': {
+                    required: true,
+                },
+
+                'Date': {
+                    required: true,
+                },
+
+
+            },
+            messages: {
+                'Name': 'Please enter Name',
+
+                'Date': {
+                    required: 'Please provide a date',
+                },
+
+            }
+        })
+        $("#Test").click(function () {
+            if ($("#registerFormId").valid()) {
+                alert("Valid")
+            } else {
+                alert("NotValid")
+            }
+        });
+    });
+</script>

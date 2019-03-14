@@ -17,7 +17,7 @@
                             <hr />
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                            @Html.HiddenFor(model => Model.Id, new { id = "subjectId", name = "subjectId" })
+                            <input id="subjectId" name="subjectId" value="@Model.Id" type="hidden">
                             <div class="form-group">
                                 <div class="col-md-2 text-capitalize">Borrowing person</div>
                                 <div class="col-md-10">
@@ -30,7 +30,7 @@
                                     <input type="date" name="returnDate" id="returnDate" />
                                 </div>
                             </div>
-                         
+
                             <div>
                                 <div class="col-md-offset-2 col-md-10">
                                     <a href="#" id="submitbtn" class="btn btn-default">borrow</a>

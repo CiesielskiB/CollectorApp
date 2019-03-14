@@ -35,17 +35,20 @@ namespace CollectorApp.WebUI.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult Borrowing(string Id, DateTimeOffset returnDate,string name)
+		public ActionResult Borrowing(string subjectId,DateTimeOffset returnDate,string name)
 		{
-			try
-			{
-				BorrowingService.BorrowSubject(Id, returnDate, name);
-				return RedirectToAction("index", "Home", new { area = "" });
+
+				try
+				{
+					BorrowingService.BorrowSubject(subjectId,returnDate,name);
+					return RedirectToAction("index", "Home", new { area = "" });
 			}
-			catch (Exception ex)
-			{
-				return View("Error", new HandleErrorInfo(ex, "Borrowing", "Borrowing"));
-			}
+				catch (Exception ex)
+				{
+					return View("Error", new HandleErrorInfo(ex, "Borrowing", "Borrowing"));
+				}
+
+			
 
 		}
 

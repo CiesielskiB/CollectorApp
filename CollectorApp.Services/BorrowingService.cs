@@ -26,8 +26,6 @@ namespace CollectorApp.Services
 			else
 			{
 				Subject subjectToBorrow = subjectContext.Find(subjectId);
-				subjectToBorrow.IsBorrowed = true;
-				subjectContext.Commit();
 				borrow = new BorrowedSubject()
 				{
 					SubjectId = subjectId,
@@ -36,6 +34,8 @@ namespace CollectorApp.Services
 				};
 				borrowedContext.Insert(borrow);
 				borrowedContext.Commit();
+				subjectToBorrow.IsBorrowed = true;
+				subjectContext.Commit();
 			}
 		}
 
